@@ -1,43 +1,38 @@
-# ☀️ SmartSun Drying Rack
+# 🌱 HelioPlant: Intelligent Bio-Sync Tracker
 
-A high-school CS project: An intelligent, automated laundry drying system that tracks the sun for maximum efficiency and protects clothes from rain.
+An automated plant-care pedestal that optimizes sunlight exposure based on specific botanical needs. Using real-time UV and luminosity tracking, HelioPlant ensures your plants get exactly the light they need—no more, no less.
 
 ## 🚀 Project Overview
-The **SmartSun Drying Rack** is an integrated hardware and software solution designed to reduce laundry drying time. Using a dual-axis light-sensing array, the rack rotates to follow the sun's position throughout the day. Additionally, the system features an automated "Rain Guard" that deploys a protective shed over the clothes when moisture is detected.
-
-### Key Features
-* **Active Sun Tracking:** Uses two LDRs (Light Dependent Resistors) and a PID-style logic loop to keep the rack angled toward the strongest light source.
-* **Rain Protection:** Instant-response rain sensor triggers a motorized awning to cover the rack.
-* **Safety Overrides:** Physical limit switches prevent motor over-rotation and cable tangling.
-* **Automated Night Reset:** Logic to return the rack to the "East" position after sunset.
+Different plants have different "Light Budgets." While a cactus might thrive in 12 hours of direct sun, a fern might suffer from leaf scorch. **HelioPlant** solves this by:
+1. **Tracking:** Following the sun's trajectory using a dual-LDR array.
+2. **Measuring:** Calculating cumulative UV exposure using a dedicated UV Index sensor.
+3. **Regulating:** Automatically rotating the plant into the shade (or away from the window) once its specific daily light requirement has been met.
+4. **Connecting:** Allowing users to select plant profiles via a companion mobile app.
 
 ---
 
 ## 🛠️ System Components
 
 ### Hardware
-* **Microcontroller:** Arduino Uno (The "Brain")
-* **Primary Motor:** NEMA 17 Stepper Motor + A4988 Driver (Rack Rotation)
-* **Secondary Motor:** SG90 Servo (Shed Deployment)
-* **Sensors:** 2x Photoresistors (LDRs), 1x Raindrop Sensor Module
-* **Safety:** 2x Mechanical Limit Switches
-* **Power:** 12V 2A DC Power Supply (for motors) + USB 5V (for Arduino)
+* **Microcontroller:** Arduino Uno or ESP32 (Recommended for App connectivity).
+* **Sensors:** * 2x LDR Photosensitive Modules (Directional Tracking).
+    * 1x GUVA-S12SD UV Index Sensor (Intensity & Safety Measurement).
+* **Actuator:** 360° High-Torque Servo or Stepper Motor (Rotating Pedestal).
+* **Display:** 16x2 I2C LCD (To show current UV index and "Light %" filled).
 
-### Software
-* **Language:** C++ / Arduino Wire
-* **Environment:** Arduino IDE / VS Code with PlatformIO
-* **Libraries:** `Stepper.h`, `Servo.h`
+### Software & App
+* **Embedded Logic:** C++ (Arduino/PlatformIO).
+* **Communication:** BLE (Bluetooth Low Energy) or Wi-Fi (via ESP32).
+* **Companion App:** Developed in [MIT App Inventor / Flutter / React Native] to send plant profiles (e.g., "Succulent" vs "Fern") to the device.
 
 ---
 
 ## 📂 Project Structure
 ```text
-├── src/
-│   ├── main.cpp          # Core logic loop and state machine
-│   ├── sensors.cpp       # LDR and Rain sensor reading functions
-│   └── movement.cpp      # Motor control and calibration functions
-├── docs/
-│   ├── wiring_diagram.png
-│   └── flow_chart.png
-├── README.md             # This file
-└── LICENSE
+├── firmware/
+│   ├── HelioPlant.ino     # Main logic and BLE handler
+│   ├── LightLogic.cpp      # UV integration and LDR differential math
+│   └── MotorControl.cpp    # Pedestal rotation functions
+├── mobile_app/             # App source code and UI assets
+├── 3D_Models/              # STL files for the rotating base
+└── README.md
